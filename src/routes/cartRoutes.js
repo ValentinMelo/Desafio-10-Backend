@@ -9,8 +9,13 @@ import {
   purchaseCart,
 } from '../controllers/cartController.js';
 import { handleError } from './errorHandler.js';
+import YAML from 'yamljs';
+import { swaggerUi, serve } from 'swagger-ui-express';
 
 const router = express.Router();
+const swaggerDocument = YAML.load('./swaggerCart.yaml');
+
+router.use(express.json());
 
 router.post("/", (req, res) => {
   try {
@@ -81,5 +86,7 @@ router.post("/:cartId/purchase", (req, res) => {
     handleError(errorCode, res);
   }
 });
+
+router.use('/api-docs', serve, swaggerUi.setup(swaggerDocument));
 
 export default router;

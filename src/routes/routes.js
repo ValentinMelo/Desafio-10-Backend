@@ -4,7 +4,7 @@ import CartRoutes from './cartRoutes.js';
 import TicketRoutes from './ticketRoutes.js';
 import { faker } from '@faker-js/faker';
 import YAML from 'yamljs';
-import setupSwagger from './swagger.js';
+import setupSwagger from '../swagger/swagger.js';
 
 const router = express.Router();
 const swaggerDocument = YAML.load('./swagger.yaml');

@@ -1,9 +1,12 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import ProductController from '../controllers/productController.js';
 import { handleError } from './errorHandler.js';
 
 const productController = new ProductController();
 const router = express.Router();
+const swaggerDocument = YAML.load('./swaggerProduct.yaml');
 
 router.get("/", (req, res) => {
   try {
@@ -55,5 +58,7 @@ router.delete("/:pid", (req, res) => {
   }
 });
 
-export default router;
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
+export default router;
